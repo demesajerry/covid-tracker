@@ -1,0 +1,3 @@
+.table-bordered > tfoot > tr > td {
+    border: 1px solid #d2d6de !important;
+}
