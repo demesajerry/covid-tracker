@@ -46,6 +46,10 @@ type: "POST",
 url: "<?php echo base_url()."public_info/area_data"; ?>",
 //data:formData,
 success: function(data){ 
+    var trigger_label = true;
+    if( /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent) ) {
+      trigger_label = false;
+    }
             var labels = [];
             var num = [];
             var new_cases = [];
@@ -232,7 +236,7 @@ success: function(data){
       }],
     },
     legend: {
-      display: true
+      display: trigger_label
     },
     tooltips: {
       backgroundColor: "rgb(255,255,255)",
