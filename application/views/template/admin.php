@@ -126,7 +126,7 @@ $image = base_url().'assets/dist/img/portrait_placeholder.png"';}
               <a href="<?php echo base_url();?>patients/get_confined"><i class="fa fa-hospital-o"></i> <span>Confined Cases</span></a>
             </li>
             <li>
-              <a href="<?php echo base_url();?>patients/get_other"><i class="fa fa-book-medical"></i> <span>Other Confirmed Case</span></a>
+              <a href="<?php echo base_url();?>patients/get_other"><i class="fa fa-book-medical"></i> <span>Other Possible Links</span></a>
             </li>
         <?php } ?>
         <li class="treeview">
