@@ -146,6 +146,7 @@ class patients extends MY_Controller {
                 $nestedData['transmission'] = $val->transmission;
                 $nestedData['action'] = '<a class="edit_modal" href="#" title="Edit Details"
 			                              id="'.$val->id.'" 
+			                              patient_id="'.$val->patient_id.'" 
 			                              name="'.$val->name.'" 
 			                              age="'.$val->age.'" 
 			                              age_type="'.$val->age_type.'" 
@@ -188,99 +189,101 @@ class patients extends MY_Controller {
 
 	public function add_patients()
 	{
-		$classification = $this->input->post('classification');
-		if($classification==0){
-			$prefix = 'LB-C';
-		}
-		if($classification==1){
-			$prefix = 'PUI-';
-		}
-		if($classification==2){
-			$prefix = 'PUM-';
-		}
-		if($classification==3){
-			$prefix = 'IC-';
-		}
-
-		if($classification==4){
-			$prefix = 'OC-';
-		}
-
-		if(!empty($this->input->post('symptoms_started'))){
-			$symptoms_started=date_create($this->input->post('symptoms_started'));
-			$symptoms_started=date_format($symptoms_started,"Y-m-d");
-		}else{
-			$symptoms_started='';
-		}
-
-		if(!empty($this->input->post('result_date'))){
-			$result_date=date_create($this->input->post('result_date'));
-			$result_date=date_format($result_date,"Y-m-d");
-		}else{
-			$result_date='';
-		}
-
-		if(!empty($this->input->post('date_recovered'))){
-			$date_recovered=date_create($this->input->post('date_recovered'));
-			$date_recovered=date_format($date_recovered,"Y-m-d");
-		}else{
-			$date_recovered='';
-		}
-
-		if(!empty($this->input->post('date_died'))){
-			$date_died=date_create($this->input->post('date_died'));
-			$date_died=date_format($date_died,"Y-m-d");
-		}else{
-			$date_died='';
-		}
-
-		if(!empty($this->input->post('qdate'))){
-			$qdate=date_create($this->input->post('qdate'));
-			$qdate=date_format($qdate,"Y-m-d");
-		}else{
-			$qdate='';
-		}
-		//get count base on classification
-		$lastNum = $this->patients_model->lastNumber($classification);
-		$lastNum = sprintf('%02d', $lastNum+1);
-		$symptoms = $this->input->post('symptoms');
-		//update last number
-		$this->patients_model->update_lastNumber($lastNum,$classification);
 		$data = new stdClass();
-		$data->patient_id = $prefix.$lastNum;
-		$data->classification = $this->input->post('classification');
-		$data->name = $this->input->post('name');
-		$data->age = $this->input->post('age');
-		$data->age_type = $this->input->post('age_type');
-		$data->gender = $this->input->post('gender');
-		$data->brgy = $this->input->post('brgy');
-		$data->travel_history = $this->input->post('travel_history');
-		$data->status = $this->input->post('status');
-		$data->current_location = $this->input->post('current_location');
-		$data->symptoms_started = $symptoms_started;
-		$data->qdate = $qdate;
-		$data->result_date = $result_date;
-		$data->date_recovered = $date_recovered;
-		$data->date_died = $date_died;
-		$data->current_condition = $this->input->post('current_condition');
-		$data->transmission = $this->input->post('transmission');
-		$data->possible_link = $this->input->post('possible_link');
-		$data->date_added = date('Y-m-d');
-		if(!empty($symptoms)){
-			foreach($symptoms as $key=>$val){
-				if($key=='0'){
-				$data->symptoms = $val;
-				}
-				else{
-				$data->symptoms .= ','.$val;
-				}
+		$classification = $this->input->post('classification');
+		$data->classification = $classification;
+		if($classification!=4){
+			if($classification==0){
+				$prefix = 'LB-C';
 			}
+			if($classification==1){
+				$prefix = 'PUI-';
+				$data->pui_date = date('Y-m-d');
+			}
+			if($classification==2){
+				$prefix = 'PUM-';
+				$data->pum_date = date('Y-m-d');
+			}
+			if($classification==3){
+				$prefix = 'IC-';
+			}
+			if(!empty($this->input->post('symptoms_started'))){
+				$symptoms_started=date_create($this->input->post('symptoms_started'));
+				$symptoms_started=date_format($symptoms_started,"Y-m-d");
+			}else{
+				$symptoms_started='';
+			}
+
+			if(!empty($this->input->post('result_date'))){
+				$result_date=date_create($this->input->post('result_date'));
+				$result_date=date_format($result_date,"Y-m-d");
+			}else{
+				$result_date='';
+			}
+
+			if(!empty($this->input->post('date_recovered'))){
+				$date_recovered=date_create($this->input->post('date_recovered'));
+				$date_recovered=date_format($date_recovered,"Y-m-d");
+			}else{
+				$date_recovered='';
+			}
+
+			if(!empty($this->input->post('date_died'))){
+				$date_died=date_create($this->input->post('date_died'));
+				$date_died=date_format($date_died,"Y-m-d");
+			}else{
+				$date_died='';
+			}
+
+			if(!empty($this->input->post('qdate'))){
+				$qdate=date_create($this->input->post('qdate'));
+				$qdate=date_format($qdate,"Y-m-d");
+			}else{
+				$qdate='';
+			}
+			//get count base on classification
+			$lastNum = $this->patients_model->lastNumber($classification);
+			$lastNum = sprintf('%02d', $lastNum+1);
+			$symptoms = $this->input->post('symptoms');
+			//update last number
+			$this->patients_model->update_lastNumber($lastNum,$classification);
+			$data->patient_id = $prefix.$lastNum;
+			$data->name = $this->input->post('name');
+			$data->age = $this->input->post('age');
+			$data->age_type = $this->input->post('age_type');
+			$data->gender = $this->input->post('gender');
+			$data->brgy = $this->input->post('brgy');
+			$data->travel_history = $this->input->post('travel_history');
+			$data->status = $this->input->post('status');
+			$data->current_location = $this->input->post('current_location');
+			$data->symptoms_started = $symptoms_started;
+			$data->qdate = $qdate;
+			$data->result_date = $result_date;
+			$data->date_recovered = $date_recovered;
+			$data->date_died = $date_died;
+			$data->current_condition = $this->input->post('current_condition');
+			$data->transmission = $this->input->post('transmission');
+			$data->possible_link = $this->input->post('possible_link');
+			if(!empty($symptoms)){
+				foreach($symptoms as $key=>$val){
+					if($key=='0'){
+					$data->symptoms = $val;
+					}
+					else{
+					$data->symptoms .= ','.$val;
+					}
+				}
+			}else{
+					$data->symptoms = '';
+			}
+			$id = $this->patients_model->add_patients($data);
+			$data->name = $data->name;
 		}else{
-				$data->symptoms = '';
+			$data->patient_id = $this->input->post('patient_id');
+			$id = $this->patients_model->add_patients($data);
+			$data->name = $data->patient_id;
 		}
 
-		$id = $this->patients_model->add_patients($data);
-		$data->name = $data->name;
 		$data->patient_id = $id;
 		$data->action = 'added';
 		header('Content-Type: application/json');
@@ -290,88 +293,95 @@ class patients extends MY_Controller {
 	public function edit_patients()
 	{
 		$this->load->model('patients_model', '', TRUE);
-
-		if(!empty($this->input->post('symptoms_started'))){
-			$symptoms_started=date_create($this->input->post('symptoms_started'));
-			$symptoms_started=date_format($symptoms_started,"Y-m-d");
-		}else{
-			$symptoms_started='';
-		}
-
-		if(!empty($this->input->post('result_date'))){
-			$result_date=date_create($this->input->post('result_date'));
-			$result_date=date_format($result_date,"Y-m-d");
-		}else{
-			$result_date='';
-		}
-
-		if(!empty($this->input->post('date_recovered'))){
-			$date_recovered=date_create($this->input->post('date_recovered'));
-			$date_recovered=date_format($date_recovered,"Y-m-d");
-		}else{
-			$date_recovered='';
-		}
-
-		if(!empty($this->input->post('date_died'))){
-			$date_died=date_create($this->input->post('date_died'));
-			$date_died=date_format($date_died,"Y-m-d");
-		}else{
-			$date_died='';
-		}
-
-		if(!empty($this->input->post('qdate'))){
-			$qdate=date_create($this->input->post('qdate'));
-			$qdate=date_format($qdate,"Y-m-d");
-		}else{
-			$qdate='';
-		}
-
-		$from_pum = $this->input->post('from_pum');
-		$symptoms = $this->input->post('symptoms');
-		$table = $this->input->post('table');
 		$classification = $this->input->post('classification');
-		$id = $this->input->post('id');
-		$this->load->model('patients_model', '', TRUE);
-		$data = new stdClass();
 		$todo = "0";
-		if($from_pum!='' && $classification==1){
-			$lastNum = $this->patients_model->lastNumber('pui');
-			$lastNum = sprintf('%02d', $lastNum+1);
-			//update last number
-			$this->patients_model->update_lastNumber($lastNum,$classification);
-			$data->patient_id = 'PUI-'.$lastNum;
-			$data->classification = $this->input->post('classification');
-			$todo = '1';
-		}
+		$data = new stdClass();
+		$id = $this->input->post('id');
 
-		$data->name = $this->input->post('name');
-		$data->age = $this->input->post('age');
-		$data->age_type = $this->input->post('age_type');
-		$data->gender = $this->input->post('gender');
-		$data->brgy = $this->input->post('brgy');
-		$data->travel_history = $this->input->post('travel_history');
-		$data->status = $this->input->post('status');
-		$data->current_location = $this->input->post('current_location');
-		$data->symptoms_started = $symptoms_started;
-		$data->qdate = $qdate;
-		$data->result_date = $result_date;
-		$data->date_recovered = $date_recovered;
-		$data->date_died = $date_died;
-		$data->current_condition = $this->input->post('current_condition');
-		$data->transmission = $this->input->post('transmission');
-		$data->possible_link = $this->input->post('possible_link');
-		if(!empty($symptoms)){
-			foreach($symptoms as $key=>$val){
-				if($key=='0'){
-				$data->symptoms = $val;
+		if($classification!=4){
+
+			if(!empty($this->input->post('symptoms_started'))){
+				$symptoms_started=date_create($this->input->post('symptoms_started'));
+				$symptoms_started=date_format($symptoms_started,"Y-m-d");
+			}else{
+				$symptoms_started='';
+			}
+
+			if(!empty($this->input->post('result_date'))){
+				$result_date=date_create($this->input->post('result_date'));
+				$result_date=date_format($result_date,"Y-m-d");
+			}else{
+				$result_date='';
+			}
+
+			if(!empty($this->input->post('date_recovered'))){
+				$date_recovered=date_create($this->input->post('date_recovered'));
+				$date_recovered=date_format($date_recovered,"Y-m-d");
+			}else{
+				$date_recovered='';
+			}
+
+			if(!empty($this->input->post('date_died'))){
+				$date_died=date_create($this->input->post('date_died'));
+				$date_died=date_format($date_died,"Y-m-d");
+			}else{
+				$date_died='';
+			}
+
+			if(!empty($this->input->post('qdate'))){
+				$qdate=date_create($this->input->post('qdate'));
+				$qdate=date_format($qdate,"Y-m-d");
+			}else{
+				$qdate='';
+			}
+
+			$from_pum = $this->input->post('from_pum');
+			$symptoms = $this->input->post('symptoms');
+			$table = $this->input->post('table');
+			$this->load->model('patients_model', '', TRUE);
+			if($from_pum!='' && $classification==1){
+				$lastNum = $this->patients_model->lastNumber('pui');
+				$lastNum = sprintf('%02d', $lastNum+1);
+				//update last number
+				$this->patients_model->update_lastNumber($lastNum,$classification);
+				$data->patient_id = 'PUI-'.$lastNum;
+				$data->classification = $this->input->post('classification');
+				$todo = '1';
+				$data->pui_date = date('Y-m-d');
+			}
+			$status = $this->input->post('status');
+			$data->name = $this->input->post('name');
+			$data->age = $this->input->post('age');
+			$data->age_type = $this->input->post('age_type');
+			$data->gender = $this->input->post('gender');
+			$data->brgy = $this->input->post('brgy');
+			$data->travel_history = $this->input->post('travel_history');
+			$data->status = $status;
+			$data->current_location = $this->input->post('current_location');
+			$data->symptoms_started = $symptoms_started;
+			$data->qdate = $qdate;
+			$data->result_date = $result_date;
+			$data->date_recovered = $date_recovered;
+			$data->date_died = $date_died;
+			$data->current_condition = $this->input->post('current_condition');
+			$data->transmission = $this->input->post('transmission');
+			$data->possible_link = $this->input->post('possible_link');
+			if(!empty($symptoms)){
+				foreach($symptoms as $key=>$val){
+					if($key=='0'){
+					$data->symptoms = $val;
+					}
+					else{
+					$data->symptoms .= ','.$val;
+					}
 				}
-				else{
-				$data->symptoms .= ','.$val;
-				}
+			}else{
+					$data->symptoms = '';
 			}
 		}else{
-				$data->symptoms = '';
+			$data->patient_id = $this->input->post('patient_id');
 		}
+
 		$this->patients_model->edit_patients($data,$id);
 		$data->id=	$id;
 		$data->todo=$todo;
