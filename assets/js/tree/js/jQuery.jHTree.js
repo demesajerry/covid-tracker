@@ -100,27 +100,54 @@
                 node.contents='N/A'
             }
             if(node.status == 'RECOVERED' && node.classification != '3' ){
-            var nodeLiElements = '<li id="' + node.id + '" class="tnode" >' + beforeDiv + '<div class="trcont"><div class="ui-widget-header ui-corner-tl ui-corner-tr green">' +
+            var nodeLiElements = '<li id="' + node.id + '" class="tnode" title="AGE: '+node.age
+            +' &#010;&#010;TRAVEL HISTORY:&#010;'+node.travel_history
+            +' &#010;&#010;CURRENT CONDITION:&#010;'+node.current_condition
+            +' &#010;&#010;SYMPTOMS:&#010;'+node.symptoms
+            +' &#010;&#010;CURRENT LOCATION:&#010;'+node.current_location
+            +' &#010;&#010;CONFIRMATION DATE:&#010;'+node.result_date
+            +'">'
+            + beforeDiv + '<div class="trcont"><div class="ui-widget-header ui-corner-tl ui-corner-tr green">' +
                 node.head + '</div><div class="ui-widget-content ui-corner-bl ui-corner-br">' +
                 node.contents + '</div></div><div class="trchl"><ul>' +
                 bfrul + '</ul></div>' + afterDiv + '</li>';
             }else  if(node.status == 'DECEASED'  && node.classification != '3' ){
-            var nodeLiElements = '<li id="' + node.id + '" class="tnode" >' + beforeDiv + '<div class="trcont"><div class="ui-widget-header ui-corner-tl ui-corner-tr black">' +
+            var nodeLiElements = '<li id="' + node.id + '" class="tnode"  title="AGE: '+node.age
+            +' &#010;&#010;TRAVEL HISTORY:&#010;'+node.travel_history
+            +' &#010;&#010;CURRENT CONDITION:&#010;'+node.current_condition
+            +' &#010;&#010;SYMPTOMS:&#010;'+node.symptoms
+            +' &#010;&#010;CURRENT LOCATION:&#010;'+node.current_location
+            +' &#010;&#010;CONFIRMATION DATE:&#010;'+node.result_date
+            +'">' + beforeDiv + '<div class="trcont"><div class="ui-widget-header ui-corner-tl ui-corner-tr black">' +
                 node.head + '</div><div class="ui-widget-content ui-corner-bl ui-corner-br">' +
                 node.contents + '</div></div><div class="trchl"><ul>' +
                 bfrul + '</ul></div>' + afterDiv + '</li>';
             }else if(node.classification == '3' ){
-            var nodeLiElements = '<li id="' + node.id + '" class="tnode" >' + beforeDiv + '<div class="trcont"><div class="ui-widget-header ui-corner-tl ui-corner-tr ic">' +
+            var nodeLiElements = '<li id="' + node.id + '" class="tnode"  title="AGE: '+node.age
+            +' &#010;&#010;TRAVEL HISTORY:&#010;'+node.travel_history
+            +' &#010;&#010;CURRENT CONDITION:&#010;'+node.current_condition
+            +' &#010;&#010;SYMPTOMS:&#010;'+node.symptoms
+            +' &#010;&#010;CURRENT LOCATION:&#010;'+node.current_location
+            +' &#010;&#010;CONFIRMATION DATE:&#010;'+node.result_date
+            +'">'
+            + beforeDiv + '<div class="trcont"><div class="ui-widget-header ui-corner-tl ui-corner-tr ic">' +
                 node.head + '</div><div class="ui-widget-content ui-corner-bl ui-corner-br">' +
                 node.contents + '</div></div><div class="trchl"><ul>' +
                 bfrul + '</ul></div>' + afterDiv + '</li>';
             }else if(node.classification == '4' ){
-            var nodeLiElements = '<li id="' + node.id + '" class="tnode" >' + beforeDiv + '<div class="trcont"><div class="ui-widget-header ui-corner-tl ui-corner-tr oc">' +
+            var nodeLiElements = '<li id="' + node.id + '" class="tnode">' + beforeDiv + '<div class="trcont"><div class="ui-widget-header ui-corner-tl ui-corner-tr oc">' +
                 node.head + '</div><div class="ui-widget-content ui-corner-bl ui-corner-br">' +
                 node.contents + '</div></div><div class="trchl"><ul>' +
                 bfrul + '</ul></div>' + afterDiv + '</li>';
             }else{
-            var nodeLiElements = '<li id="' + node.id + '" class="tnode" >' + beforeDiv + '<div class="trcont"><div class="ui-widget-header ui-corner-tl ui-corner-tr">' +
+            var nodeLiElements = '<li id="' + node.id + '" class="tnode"  title="AGE: '+node.age
+            +' &#010;&#010;TRAVEL HISTORY:&#010;'+node.travel_history
+            +' &#010;&#010;CURRENT CONDITION:&#010;'+node.current_condition
+            +' &#010;&#010;SYMPTOMS:&#010;'+node.symptoms
+            +' &#010;&#010;CURRENT LOCATION:&#010;'+node.current_location
+            +' &#010;&#010;CONFIRMATION DATE:&#010;'+node.result_date
+            +'">'
+            + beforeDiv + '<div class="trcont"><div class="ui-widget-header ui-corner-tl ui-corner-tr">' +
                 node.head + '</div><div class="ui-widget-content ui-corner-bl ui-corner-br">' +
                 node.contents + '</div></div><div class="trchl"><ul>' +
                 bfrul + '</ul></div>' + afterDiv + '</li>';
