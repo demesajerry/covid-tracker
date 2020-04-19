@@ -183,7 +183,10 @@ input:required {
                         </tr>
                         <tr>
                           <td>Possible Link</td>
-                          <td><input type="text" name="possible_link" id="possible_link" class="form-control"></td>
+                          <td>
+                            <select class="select2" name="possible_link" id="possible_link" style="width: 100%">
+                            </select>
+                          </td>
                         </tr>
 
                        </table>
@@ -470,6 +473,7 @@ $(document).ready(function() {
     $('#form1 select').select2("").trigger('change');
     $('#action').val("add");
       $("#results").html('<img src="<?php echo base_url(); ?>assets/images/add_image.png?<?php echo time(); ?>" class="user-image" width="190px" height="190pxss">');
+    patients_list('0');
     $('#add_patients_modal').modal('show');
   });
 
@@ -513,6 +517,7 @@ $('#viewresult').on('click', '.edit_modal', function () {
       var symptomsarray = symptoms.split(',');
 
       get_required(status);
+      patients_list(possible_link);
 
       //get_brgy(citymunCode,brgyCode);
       $("#action").val('edit');
@@ -525,7 +530,6 @@ $('#viewresult').on('click', '.edit_modal', function () {
       $("#result_date").val(result_date);
       $("#date_recovered").val(date_recovered);
       $("#date_died").val(date_died);
-      $("#possible_link").val(possible_link);
 
       $('#age_type').val(age_type);
       $('#age_type').select2().trigger('age_type');

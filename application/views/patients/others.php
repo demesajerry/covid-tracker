@@ -43,7 +43,7 @@ input:required {
             <div class="col-xs-12">
                 <div class="box">
                     <div class="box-header">
-                    <h3 class="box-title">Other Confirmed Cases Outside of Los Baños</h3>
+                    <h3 class="box-title">Other Possible Links</h3>
                         <div class="box-tools">
                             <button class="btn btn-info" id="add_patients" >
                                 <i  class="fa fa-plus fa-1x"> </i> Add Other Case
@@ -54,8 +54,8 @@ input:required {
                    <table class="table table-striped table-bordered table-hover" id="viewresult">
                         <thead>
                             <tr >
-                              <th width="5%">Possible Link Code</th>
-                              <th width="5%">Action</th>
+                              <th width="90%">Possible Link Code</th>
+                              <th width="10%">Action</th>
                             </tr>
                         </thead>
                     </table>
