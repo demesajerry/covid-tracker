@@ -9,12 +9,57 @@
 			$this->db->select('count(*) as case_count');
 			$this->db->from('patients');
 			$this->db->where('classification',$classification);
-			if($classification!=0){
-				$this->db->where('status!=','CLEARED');
-			}
 			if($where!=''){
 				$this->db->where('status',$where);
 			}
+			$query = $this->db->get('');
+			$result = $query->result();
+			return $result[0]->case_count; 
+		}
+
+		public function count_allyesterday($classification,$where){
+			$today = date('Y-m-d');
+			$this->db->select('count(*) as case_count');
+			$this->db->from('patients');
+			if($classification==0){
+			$this->db->where('classification',$classification);
+			}else if($classification==1) {
+			$this->db->where('pui_date!=','0000-00-00');
+			}else if($classification==2) {
+			$this->db->where('pum_date!=','0000-00-00');
+			}
+			if($where!=''){
+				$this->db->where('status',$where);
+				$this->db->where('clear_date<',$today);
+			}
+
+			$query = $this->db->get('');
+			
+			$result = $query->result();
+			return $result[0]->case_count; 
+		}
+		public function count_today($classification){
+			$today = date('Y-m-d');
+			$this->db->select('count(*) as case_count');
+			$this->db->from('patients');
+			$this->db->where('classification',$classification);
+			if($classification==1){
+				$this->db->where('pui_date',$today);
+			}else if($classification==2){
+				$this->db->where('pum_date',$today);
+			}else{
+				$this->db->where('result_date',$today);
+			}
+			$query = $this->db->get('');
+			$result = $query->result();
+			return $result[0]->case_count; 
+		}
+		public function count_ctoday($classification){
+			$today = date('Y-m-d');
+			$this->db->select('count(*) as case_count');
+			$this->db->from('patients');
+			$this->db->where('classification',$classification);
+			$this->db->where('clear_date',$today);
 			$query = $this->db->get('');
 			$result = $query->result();
 			return $result[0]->case_count; 
@@ -45,7 +90,7 @@
 		}
 
 		public function tree_data(){
-			$this->db->select('id, patient_id as head, possible_link,classification,status, concat(brgy,"<br>",status) as contents, current_location');
+			$this->db->select('id, patient_id as head, possible_link,classification,status, concat(brgy,"<br>",status) as contents, current_location, concat(age," ",age_type) as age, travel_history, current_condition, symptoms, current_location, result_date ');
 			$this->db->from('patients');
 			$this->db->where('classification','0');
 			$this->db->or_where('classification','3');
