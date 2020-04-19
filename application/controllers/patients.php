@@ -205,7 +205,7 @@ class patients extends MY_Controller {
 				$data->pum_date = date('Y-m-d');
 			}
 			if($classification==3){
-				$prefix = 'IC-';
+				$prefix = 'NLB-C';
 			}
 			if(!empty($this->input->post('symptoms_started'))){
 				$symptoms_started=date_create($this->input->post('symptoms_started'));
