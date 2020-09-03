@@ -19,11 +19,32 @@ class public_info extends MY_Controller {
 	public function dashboard()
 	{
 		$this->load->model('public_info_model');
+	    $current_cleared_pui = 101;// As of April 10, 200
+		$current_cleared_pum = 471;// As of April 10, 200
+		$confirmed = $this->public_info_model->count('0','');
+		$confirmed_today = $this->public_info_model->count_today('0');
+
 		$this->data['userdata'] = $this->session->userdata('logged_in');
 		$this->data['content'] = 'public_info/index';
-		$this->data['confirmed'] = $this->public_info_model->count('0','');
-		$this->data['pui'] = $this->public_info_model->count('1','');
-		$this->data['pum'] = $this->public_info_model->count('2','');
+		$this->data['confirmed'] = $confirmed;
+		$this->data['confirmed_yesterday'] = $confirmed - $confirmed_today;
+
+		$this->data['pui'] = $this->public_info_model->count('1','') + $current_cleared_pui;//total
+		$this->data['pum'] = $this->public_info_model->count('2','') + $current_cleared_pum;//total
+		$this->data['pui_yesterday'] = $this->public_info_model->count_allyesterday('1','') + $current_cleared_pui;//total
+		$this->data['pum_yesterday'] = $this->public_info_model->count_allyesterday('2','') + $current_cleared_pum;//total
+
+		$this->data['pui_cleared'] = $this->public_info_model->count('1','CLEARED') + $current_cleared_pui;
+		$this->data['pum_cleared'] =  $this->public_info_model->count('2','CLEARED') + $current_cleared_pui;
+		$this->data['pui_cyesterday'] = $this->public_info_model->count_allyesterday('1','CLEARED') + $current_cleared_pui;
+		$this->data['pum_cyesterday'] = $this->public_info_model->count_allyesterday('2','CLEARED') + $current_cleared_pum;
+
+		$this->data['pui_today'] = $this->public_info_model->count_today('1');
+		$this->data['pui_ctoday'] = $this->public_info_model->count_ctoday('1');
+
+		$this->data['pum_today'] = $this->public_info_model->count_today('2');
+		$this->data['pum_ctoday'] = $this->public_info_model->count_ctoday('2');
+
 		$this->data['deceased'] = $this->public_info_model->count('0','deceased');
 		$this->data['recovered'] = $this->public_info_model->count('0','recovered');
 		$this->data['active_case'] = $this->data['confirmed'] - ($this->data['deceased']+$this->data['recovered']);

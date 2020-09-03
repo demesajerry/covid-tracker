@@ -86,7 +86,17 @@ $(function () {
           <i class="fas fa-fw fa-user-circle"></i>
           <span>PUM</span></a>
       </li>
-   
+      <hr class="sidebar-divider">
+      <!-- Heading -->
+      <div class="sidebar-heading">
+        Contact Tracing
+      </div>
+      <!-- Nav Item - Pages Collapse Menu -->
+      <li class="nav-item active">
+        <a class="nav-link" href="<?php echo base_url();?>contact_tracing/registration">
+          <i class="fa fa-address-card"></i>
+          <span>Registration</span></a>
+      </li>
       <!-- Divider -->
       <hr class="sidebar-divider d-none d-md-block">
     </ul>

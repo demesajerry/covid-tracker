@@ -53,33 +53,34 @@ success: function(data){
             var labels = [];
             var num = [];
             var new_cases = [];
-            var recovered = [];
-            var new_recovered = [];
-            var death = [];
-            var new_death = [];
+            //var recovered = [];
+           // var new_recovered = [];
+           // var death = [];
+           // var new_death = [];
             var color = [];
             var dateArray = getDates(new Date('03-14-2020'), (new Date()));
             var total =0;
-            var total_recovered =0;
-            var total_death =0;
+            //var total_recovered =0;
+            //var total_death =0;
             for (i = 0; i < dateArray.length; i ++ ) {
               labels.push(convert_date(dateArray[i]));
               num.push(total);
-              new_cases.push(0);
-              recovered.push(total_recovered);
-              new_recovered.push(0);
-              death.push(total_death);
-              new_death.push(0);
+              //new_cases.push(0);
+              //recovered.push(total_recovered);
+             //new_recovered.push(0);
+             // death.push(total_death);
+              //new_death.push(0);
               color.push(getRandomColor());
               $.each( data.area_data, function( key, val ) {
                 if(dateArray[i] == val.result_date){
                   total += parseInt(val.num);
                   num[i] = total;
-                  new_cases[i] = val.num;
+                  //new_cases[i] = val.num;
                   data.area_data.splice(key, 0);                  
                   return false;                
                 }
               });
+              /*
               $.each( data.recoveries_data, function( key, val ) {
                 if(dateArray[i] == val.date){
                   total_recovered += parseInt(val.num);
@@ -97,7 +98,7 @@ success: function(data){
                   data.death_data.splice(key, 0);                  
                   return false;                
                 }
-              });
+              });*/
             }   
             var ctx = document.getElementById("myAreaChart");
             var myLineChart = new Chart(ctx, {
@@ -118,7 +119,7 @@ success: function(data){
                   pointHitRadius: 10,
                   pointBorderWidth: 2,
                   data: num,
-                },
+                },/*
                 {
                   label: "New Cases",
                   lineTension: 0.3,
@@ -191,7 +192,7 @@ success: function(data){
                   pointHitRadius: 10,
                   pointBorderWidth: 2,
                   data: new_death,
-                },
+                },*/
                   ],
               },
   options: {

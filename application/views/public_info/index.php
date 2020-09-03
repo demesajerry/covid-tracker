@@ -90,6 +90,31 @@
           height: 22rem;
           width: 100%;
         }
+        .total{
+          font-size: 46pt;
+          color: blue !important;
+        }
+        .total_c{
+          font-size: 56pt;
+          color: blue !important;
+        }
+        .cleared{
+          font-size: 46pt;
+          color: red !important;
+        }
+        .right_border{
+          border-right: 1px solid black;
+        }
+        .table td, .table th {
+            padding: 0px !important;
+            vertical-align: top;
+            border-top: 1px solid #e3e6f0;
+            text-align: center;
+            margin-bottom: 0rem;
+        }
+        .table{
+            margin-bottom: 0rem;
+        }
         @media (min-width: 768px){
           .chart-pie {
             height: calc(25rem - 43px)!important;
@@ -108,67 +133,131 @@
           <div class="row">
 
             <!-- Earnings (Monthly) Card Example -->
-            <div class="col-xl-2 col-md-6 mb-4">
-              <div class="card border-left-primary shadow h-100 py-2">
+            <div class="col-xl-4 col-md-6 mb-4">
+              <div class="card border-left-info shadow h-100 py-2">
                 <div class="card-body">
-                  <div class="row no-gutters align-items-center">
-                    <div class="col mr-2">
-                      <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">Total Confirmed Case</div>
-                      <div class="h5 mb-0 font-weight-bold text-gray-800"><?= $confirmed ?></div>
-                    </div>
-                    <div class="col-auto">
-                      <i class="fas fa-user-plus fa-2x text-gray-300"></i>
-                    </div>
-                  </div>
+                    <table class="table">
+                      <tr>
+                        <td><center><b>COVID19 POSITIVE</b></center></td>
+                      </tr>
+                      <tr>
+                        <td><center>TOTAL CONFIRMED TODAY</center></td>
+                      </tr>
+                      <tr>
+                        <td class="total_c">
+                            <center><?= $confirmed ?></center>
+                        </td>
+                      </tr>
+                      <tr>
+                        <td><center>TOTAL CONFIRMED YESTERDAY</center></td>
+                      </tr>
+                      <tr>
+                        <td class="total_c">
+                            <center><?= $confirmed_yesterday ?></center>
+                        </td>
+                      </tr>
+                    </table>
                 </div>
               </div>
-            </div>
+            </div>  
+            <!-- Earnings (Monthly) Card Example -->
+            <div class="col-xl-4 col-md-6 mb-4">
+              <div class="card border-left-info shadow h-100 py-2">
+                <div class="card-body">
+                    <table class="table">
+                      <tr>
+                        <td colspan="2"><center><b>PERSONS UNDER INVESTIGATION (PUI)</b></center></td>
+                      </tr>
+                        <tr>
+                          <td colspan="2"><center><b>TODAY</b></center></td>
+                        </tr>
+                      <tr>
+                        <td width="50%"><center>TOTAL</center></td>
+                        <td width="50%"><center>CLEARED</center></td>
+                      </tr>
+                      <tr>
+                        <td class="total">
+                            <?= $pui ?>
+                        </td>
+                        <td class="cleared">
+                            <?= $pui_cleared ?>
+                        </td>
+                      </tr>
+                      <tr>
+                        <td colspan="2"><center>YESTERDAY</center></td>
+                      </tr>
+                      <tr>
+                        <td width="50%"><center>TOTAL</center></td>
+                        <td width="50%"><center>CLEARED</center></td>
+                      </tr>
+                      <tr>
+                        <td class="total">
+                            <?= $pui_yesterday ?>
+                        </td>
+                        <td  class="cleared">
+                            <?= $pui_cyesterday ?>
+                        </td>
+                      </tr>
+                    </table>
+                </div>
+              </div>
+            </div>  
 
+              <!-- Earnings (Monthly) Card Example -->
+              <div class="col-xl-4 col-md-6 mb-4">
+                <div class="card border-left-info shadow h-100 py-2">
+                  <div class="card-body">
+                      <table class="table">
+                        <thead>
+                          <tr>
+                            <td colspan="2"><center><b>PERSONS UNDER MONITORING (PUM)</b></center></td>
+                          </tr>
+                          <tr>
+                            <td colspan="2"><center><b>TODAY</b></center></td>
+                          </tr>
+                          <tr>
+                            <td width="50%"><center>TOTAL</center></td>
+                            <td width="50%"><center>CLEARED</center></td>
+                          </tr>
+                        </thead>
+                        <tr>
+                          <td class="total">
+                              <?= $pum ?>
+                          </td>
+                          <td class="cleared">
+                              <?= $pum_cleared ?>
+                          </td>
+                        </tr>
+                        <tr>
+                          <td colspan="2"><center>YESTERDAY</center></td>
+                        </tr>
+                          <tr>
+                            <td width="50%"><center>TOTAL</center></td>
+                            <td width="50%"><center>CLEARED</center></td>
+                          </tr>
+                        <tr>
+                          <td class="total">
+                              <?= $pum_yesterday ?>
+                          </td>
+                          <td  class="cleared">
+                              <?= $pum_cyesterday ?>
+                          </td>
+                        </tr>
+                      </table>
+                  </div>
+                </div>
+              </div>  
             <!-- Pending Requests Card Example -->
-            <div class="col-xl-2 col-md-6 mb-4">
+            <div class="col-xl-4 col-md-6 mb-4">
               <div class="card border-left-danger shadow h-100 py-2">
                 <div class="card-body">
                   <div class="row no-gutters align-items-center">
                     <div class="col mr-2">
-                      <div class="text-xs font-weight-bold text-default text-uppercase mb-1">Active Confirmed Case</div>
-                      <div class="h5 mb-0 font-weight-bold text-gray-800"><?= $active_case ?></div>
+                      <div class="text-xs font-weight-bold text-default text-uppercase mb-1">Active Confirmed Case Under Quarantine / Recovery</div>
+                      <div class="h5 mb-0 font-weight-bold text-gray-800"><i class="fas fa-user-shield fa-2x text-gray-300"></i></div>
                     </div>
-                    <div class="col-auto">
-                      <i class="fas fa-user-shield fa-2x text-gray-300"></i>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-
-            <!-- Pending Requests Card Example -->
-            <div class="col-xl-2 col-md-6 mb-4">
-              <div class="card border-left-success shadow h-100 py-2">
-                <div class="card-body">
-                  <div class="row no-gutters align-items-center">
-                    <div class="col mr-2">
-                      <div class="text-xs font-weight-bold text-success text-uppercase mb-1">Recovered</div>
-                      <div class="h5 mb-0 font-weight-bold text-gray-800"><?= $recovered ?></div>
-                    </div>
-                    <div class="col-auto">
-                      <i class="fas fa-user-check fa-2x text-gray-300"></i>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-
-            <!-- Pending Requests Card Example -->
-            <div class="col-xl-2 col-md-6 mb-4">
-              <div class="card border-left-dark shadow h-100 py-2">
-                <div class="card-body">
-                  <div class="row no-gutters align-items-center">
-                    <div class="col mr-2">
-                      <div class="text-xs font-weight-bold text-danger text-uppercase mb-1">Deceased</div>
-                      <div class="h5 mb-0 font-weight-bold text-gray-800"><?= $deceased ?></div>
-                    </div>
-                    <div class="col-auto">
-                      <i class="fas fa-user-alt-slash fa-2x text-gray-300"></i>
+                    <div class="col-auto font20">
+                      <?= $active_case ?>
                     </div>
                   </div>
                 </div>
@@ -176,42 +265,61 @@
             </div>
 
             <!-- Earnings (Monthly) Card Example -->
-            <div class="col-xl-2 col-md-6 mb-4">
-              <div class="card border-left-warning shadow h-100 py-2">
-                <div class="card-body">
-                  <div class="row no-gutters align-items-center">
-                    <div class="col mr-2">
-                      <div class="text-xs font-weight-bold text-warning text-uppercase mb-1">PUI</div>
-                      <div class="h5 mb-0 font-weight-bold text-gray-800"><?= $pui ?></div>
-                    </div>
-                    <div class="col-auto">
-                      <i class="fas fa-user-lock fa-2x text-gray-300"></i>
-                    </div>
+              <div class="col-xl-4 col-md-6 mb-4">
+                <div class="card border-left-info shadow h-100 py-2">
+                  <div class="card-body">
+                      <table class="table">
+                        <thead>
+                          <tr>
+                            <td colspan="2"><center><b>PERSONS UNDER INVESTIGATION (PUI)</b></center></td>
+                          </tr>
+                          <tr>
+                            <td width="50%"><center>NEW CASE/S</center></td>
+                            <td width="50%"><center>CLEARED TODAY</center></td>
+                          </tr>
+                        </thead>
+                        <tr>
+                          <td class="total">
+                              <?= $pui_today ?>
+                          </td>
+                          <td class="cleared">
+                              <?= $pui_ctoday ?>
+                          </td>
+                        </tr>
+                        </tr>
+                      </table>
                   </div>
                 </div>
-              </div>
-            </div>
+              </div>  
 
             <!-- Earnings (Monthly) Card Example -->
-            <div class="col-xl-2 col-md-6 mb-4">
-              <div class="card border-left-info shadow h-100 py-2">
-                <div class="card-body">
-                  <div class="row no-gutters align-items-center">
-                    <div class="col mr-2">
-                      <div class="text-xs font-weight-bold text-info text-uppercase mb-1">PUM</div>
-                      <div class="row no-gutters align-items-center">
-                        <div class="col-auto">
-                          <div class="h5 mb-0 mr-3 font-weight-bold text-gray-800"><?= $pum ?></div>
-                        </div>
-                      </div>
-                    </div>
-                    <div class="col-auto">
-                      <i class="fas fa-user-circle fa-2x text-gray-300"></i>
-                    </div>
+              <div class="col-xl-4 col-md-6 mb-4">
+                <div class="card border-left-info shadow h-100 py-2">
+                  <div class="card-body">
+                      <table class="table">
+                        <thead>
+                          <tr>
+                            <td colspan="2"><center><b>PERSONS UNDER MONITORING (PUM)</b></center></td>
+                          </tr>
+                          <tr>
+                            <td width="50%"><center>NEW CASE/S</center></td>
+                            <td width="50%"><center>CLEARED TODAY</center></td>
+                          </tr>
+                        </thead>
+                        <tr>
+                          <td class="total">
+                              <?= $pum_today ?>
+                          </td>
+                          <td class="cleared">
+                              <?= $pum_ctoday ?>
+                          </td>
+                        </tr>
+                        </tr>
+                      </table>
                   </div>
                 </div>
-              </div>
-            </div>          .
+              </div>  
+        
           </div>
 
           <!-- Content Row -->
